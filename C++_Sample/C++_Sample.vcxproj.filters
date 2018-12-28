@@ -18,5 +18,13 @@
     <ClCompile Include="..\C_Sample\c++_smple_01.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="include\MyTeacher.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\MyTeacher.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

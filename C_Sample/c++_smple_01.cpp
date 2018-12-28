@@ -1,6 +1,9 @@
+#define _CRT_SECURE_NO_WARNINGS //必须加载第一行,不然strcpy 会报各种不安全,莫名其妙的错误
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream> //没有.h,升级后把.h 去掉了.
+#include <stdarg.h>
+
 #define PI 3.14
 
 using namespace std;
@@ -93,7 +96,7 @@ namespace NSP_B {
 //布尔类型
 /*
 void main() {
-	bool isSingle = true; // 正负数 只要不是0 就是true; 
+	bool isSingle = true; // 正负数 只要不是0 就是true;
 	cout << isSingle << endl;
 	if (isSingle) {
 		cout << "单身" << endl;
@@ -128,7 +131,7 @@ void swap_2(int &x, int &y) {
 	y = c;
 }
 
-//引用 
+//引用
 //引用的主要功能:作为函数的参数或者返回值.
 //引用是变量的别名,指针保存的是地址.
 void main() {
@@ -136,7 +139,7 @@ void main() {
 	int a = 10;
 
 	//b 就这个内存空间另外一个别名
-	// & 表示C++当中的引用.  
+	// & 表示C++当中的引用.
 	int &b = a;
 	cout << b << endl;
 
@@ -150,7 +153,7 @@ void main() {
 
 
 	getchar();
-	
+
 }
 */
 
@@ -248,10 +251,10 @@ void main() {
 //}
 
 
-struct Teacher {
-	char name[20];
-	int age;
-};
+//struct Teacher {
+//	char name[20];
+//	int age;
+//};
 
 
 //练习引用和指针: 引用不用做间接赋值,引用可以不用做非空判断.
@@ -275,4 +278,558 @@ struct Teacher {
 //}
 
 
-//函数
+//函数 -- 默认参数
+//void myprint(int x, int y, int z = 10) {
+//	cout << z << endl;
+//}
+////重载
+//void myprint(int x, bool ret) {
+//
+//}
+//可变参数
+//void func(int i,...) {
+//	va_list args_p;
+//	va_start(args_p,i);
+//	int value;
+//	while (1) {
+//		value = va_arg(args_p, int);
+//		if (value <= 0)
+//		{
+//			break;
+//		}
+//		cout << value << endl;
+//	}
+//	
+//	va_end(args_p);
+//}
+//void main() {
+//	func(9,10,28,30);
+//	getchar();
+//}
+
+
+//类 的写法 和方法实现
+//#include "MyTeacher.h"
+//
+//void main() {
+//	MyTeacher t1;
+//	t1.name = "Java";
+//	t1.age = 20;
+//	cout << t1.getName() << endl;
+//
+//}
+
+
+//构造函数/  析构函数 / 拷贝构造函数
+//class Persion {
+//private:
+//	char *name;
+//	int age;
+//public:
+//	//无参构造函数(写了,就会覆盖默认的无参构造函数);
+//	Persion() {
+//		cout << "无参构造函数" << endl;
+//		//开辟内存
+//		//this->name = (char*)malloc(100);
+//		
+//	}
+//	//有惨构造函数 会覆盖默认的无参构造函数
+//	Persion(char *name, int age) {
+//		this->name = name;
+//		this->age = age;
+//		cout << "有参构造函数" << endl;
+//	}
+//	//析构函数,当对象要被释放时,析构函数被调用
+//	//主要作用:释放一些资源
+//	~Persion()
+//	{	//释放内存
+//		//delete this->name;
+//		//free(this->name);
+//		cout << "析构函数" << endl;
+//	}
+//
+//	//拷贝构造函数(值拷贝)
+//	//默认拷贝构造函数,就是值拷贝.默认的拷贝构造函数就是下面这个干的.
+//	Persion(const Persion &obj) {
+//		this->name = obj.name;
+//		this->age = obj.age;
+//		cout << "拷贝构造函数" << endl;
+//	}
+//	void myprint() {
+//		cout << name << "," << age << endl;
+//	}
+//};
+//void func() {
+//	Persion p1;
+//}
+//void main() {
+//	Persion p1;
+//	/*
+//	E0144	"const char *" 类型的值不能用于初始化 "char *" 类型的实体
+//	这是C中的遗留问题,本身"Java"就是const char* 常量, 但是赋值给指针就可以改变了,所以这是有问题的.
+//	*/
+//	Persion p2((char*)"Java",20);
+//	Persion p3 = Persion((char*)"Android", 21);
+//	//Persion *p3 = new Persion((char*)"Android", 21);//new的话必须释放
+//	//拷贝函数
+//	Persion p4((char*)"Test",26);
+//	Persion p5 = p4;
+//	
+//	func();
+//}
+
+
+//浅拷贝
+//class Persion {
+//private:
+//	char *name;
+//	int age;
+//public:
+//	//有惨构造函数 会覆盖默认的无参构造函数
+//	Persion(char *name, int age) {
+//		this->name = (char*)malloc(100);
+//		strcpy(this->name, name);
+//		this->age = age;
+//		cout << "有参构造函数" << endl;
+//	}
+//
+//	//拷贝构造函数(值拷贝)
+//	//默认拷贝构造函数,就是值拷贝. 默认的拷贝构造函数就是下面这个干的.
+//	Persion(const Persion &obj) {
+//		this->name = obj.name;
+//		this->age = obj.age;
+//		cout << "拷贝构造函数" << endl;
+//	}
+//	void myprint() {
+//		cout << name << "," << age << endl;
+//	}
+//	~Persion()
+//	{
+//		free(this->name);
+//	}
+//};
+//
+//void func() {
+//	Persion p1((char*)"Java", 26);
+//	Persion p2 = p1;
+//	p1.myprint();
+//	/*
+//	浅拷贝的问题:
+//	指针是保存变量的地址,那么浅拷贝的问题就来了,
+//	值拷贝是什么,就是 p1 和 p2 的name 是一个内存地址,
+//	当func执行完成后,首先析构p1的内存区域,再释放p2的内存地址,
+//	一个内存地址不能被释放两次,所以报错.
+//	
+//
+//	*/
+//	p2.myprint();
+//}
+//void main() {
+//	func();
+//	getchar();
+//}
+
+//深拷贝 : 深拷贝 只要牵扯到堆内存分配的,就要重写拷贝构造.使用深拷贝.
+//class Persion {
+//private:
+//	char *name;
+//	int age;
+//public:
+//	//有惨构造函数 会覆盖默认的无参构造函数
+//	Persion(char *name, int age) {
+//		int len = strlen(name);
+//		this->name = (char*)malloc(len+1);
+//		strcpy(this->name,name);
+//		this->age = age;
+//		cout << "有参构造函数" << endl;
+//	}
+//
+//	//深拷贝
+//	Persion(const Persion &obj) {
+//		//复制name 属性
+//		int len = strlen(obj.name);
+//		this->name = (char*)malloc(len+1);
+//		strcpy(this->name,obj.name);
+//		//
+//		this->age = obj.age;
+//		cout << "拷贝构造函数" << endl;
+//	}
+//	void myprint() {
+//		cout << name << "," << age << endl;
+//	}
+//	~Persion()
+//	{
+//		cout << "析构函数" << endl;
+//		free(this->name);
+//	}
+//};
+//
+//void func() {
+//	Persion p1((char*)"Java", 26);
+//	Persion p2 = p1;
+//	p1.myprint();
+//	/*
+//	浅拷贝的问题:
+//	指针是保存变量的地址,那么浅拷贝的问题就来了,
+//	值拷贝是什么,就是 p1 和 p2 的name 是一个内存地址,
+//	当func执行完成后,首先析构p1的内存区域,再释放p2的内存地址,
+//	一个内存地址不能被释放两次,所以报错.
+//	深拷贝:
+//	深拷贝因为是重新开辟的内存, 两个name 的内存区域是分开的,
+//	所以析构函数里面释放内存的时候,就不会报错.
+//	
+//	*/
+//	p2.myprint();
+//}
+//void main() {
+//	func();
+//	getchar();
+//}
+
+
+
+//构造函数的属性初始化列表
+// 包含的 Teacher对象先创建,Student再创建自己, Student自己先析构,Teacher最后被析构.
+//class Teacher {
+//private:
+//	char* name;
+//public:
+//	Teacher(char* name) {
+//		this->name = name;
+//		cout << "Teacher 有参构造函数" << endl;
+//	}
+//	~Teacher()
+//	{
+//		cout << "Teacher 析构函数" << endl;
+//	}
+//	char* getName() {
+//		return this->name;
+//	}
+//};
+//class Student {
+//private:
+//	int id;
+//	//属性对象
+//	Teacher t1;
+//	Teacher t2;
+//public:
+//	Student(int id, char *t1_n, char *t2_n) :t1(t1_n), t2(t2_n) {
+//		this->id = id;
+//		cout << "Student 有参构造函数" << endl;
+//	}
+//	void myprint() {
+//		cout << id << "," << t1.getName() << "," << t2.getName() << endl;
+//	}
+//	~Student()
+//	{
+//		cout << "Student 析构函数" << endl;
+//	}
+//};
+//void func() {
+//	Student s1(20, (char*)"ms cang", (char*)"mis liu");
+//	Student s2(10, (char*)"ms bo", (char*)"mis la");
+//	s1.myprint();
+//	s2.myprint();
+//}
+//void main() {
+//	func();
+//	getchar();
+//}
+
+
+//动态内存分配
+//C++ 通过new(delete) 动态内存分配和回收
+//C 中 malloc(free)
+//这两种最大的区别就是: malloc +free  不会调用 构造函数和析构函数.
+/*
+一定要 new + delete 吗? 那也不一定,new完 用free 也可以,但是就不会调用析构函数和构造函数了.
+*/
+//class Teacher {
+//private:
+//	char* name;
+//public:
+//	//计数器
+//	static int total;
+//	Teacher(char* name) {
+//		this->name = name;
+//		cout << "Teacher 有参构造函数" << endl;
+//	}
+//	~Teacher()
+//	{
+//		cout << "Teacher 析构函数" << endl;
+//	}
+//	char* getName() {
+//		return this->name;
+//	}
+//	void setName(char* name) {
+//		this->name = name;
+//	}
+//	static void count() {
+//		Teacher::total++;
+//	}
+//};
+//void func() {
+//	//C++
+//	Teacher *t1 = new Teacher((char*)"Java");
+//	cout << t1->getName() << endl;
+//	//释放
+//	delete t1;
+//
+//	//C 
+//	Teacher *t2 = (Teacher*)malloc(sizeof(Teacher));
+//	t2->setName((char*)"Android");
+//	cout << t2->getName() << endl;
+//	free(t2);
+//}
+//void func01() {
+//	//数组
+//	int *p1 = (int*)malloc(sizeof(int)*10);
+//	p1[0] = 9;
+//	free(p1);
+//
+//	int *p2 = new int[10];
+//	p2[0] = 2;
+//	//释放数组 []
+//	delete[] p2;
+//}
+////初始化内部静态变量
+//int Teacher::total = 9;
+////
+//void func02() {
+//	//直接通过类名访问
+//	Teacher::count();
+//	cout << Teacher::total << endl;
+//	//	BB::AA::Teacher::count; //嵌套命名空间的访问方式
+//
+//}
+//void main() {
+//	func();
+//	func01();
+//	func02();
+//	getchar();
+//}
+
+//类的大小
+//class A {
+//public:
+//	int i;
+//	int j;
+//	int k;
+//	static int m;
+//};
+//class B {
+//public:
+//	int i;
+//	int j;
+//	int k;
+//	//void(*myprintf)() = myprintf; C 中结构体是这样写
+//	void myprintf() {
+//		cout << "打印" << endl;
+//	}
+//};
+//void main() {
+//	//C/C++ 内存分区:栈区、堆区、全局区（静态成员、全局成员）、
+//	//常量区（字符串）、程序代码区
+//	/*
+//	JVM stack（基本数据类型、对象的引用）、native Method stack（本地方法栈）、
+//	方法区（常量和代码）、程序计数区、直接内存
+//	C++中的类:
+//	普通属性和结构体相同的内存布局,但是静态成员存在全局区里面,
+//	不作为类的大小,进行计算.类的函数也是存在代码区里面,也不做计算.
+//	之所以分开,主要是为了起到这个类的所有对象公用这些属性和函数.
+//	
+//	*/
+//	cout << sizeof(A) << endl;
+//	cout << sizeof(B) << endl;
+//}
+
+
+//this 关键字
+/*
+JNI为什么 C 要传JNIEnv 而C++不用传:
+原因就是因为C中没有this关键字, 所以最后用一个二级指针保存一个JniEnv的指针,传进去后,模仿的this操作.
+*/
+//class Teacher {
+//private:
+//	char* name;
+//public:
+//	//计数器
+//	static int total;
+//	Teacher(char* name) {
+//		this->name = name;
+//		cout << "Teacher 有参构造函数" << endl;
+//	}
+//	~Teacher()
+//	{
+//		cout << "Teacher 析构函数" << endl;
+//	}
+//	//常函数 修饰的是this const写到函数后面,这个对象的任何东西都能被改变,这样做是为了保证数据安全.
+//	//既不能改变指针的值,又不能改变指针指向的内容. 
+//	void myprint() const {
+//		printf("this 的指针%#x\n", this);
+//		//this->name = (char*)"lala";
+//		//报 const(内容不能修改) Teacher* const(值不能修改) this  
+//		/*(这是一个指针常量)const Teacher* (这是一个常量指针)const this  
+//		这样写的意思就是 前面指针常量的内容不能修改, 后面常量指针的值不能修改.
+//		*/
+//		//this = (Teacher*)0x00009;
+//		cout << this->name << endl;
+//	}
+//};
+//void main() {
+//	Teacher t1((char*)"java");
+//	t1.myprint();
+//	Teacher t2((char*)"java");
+//	t2.myprint();
+//	getchar();
+//}
+
+
+
+//友元函数 
+//
+//class A {
+//private:
+//	int i;
+//public:
+//	A(int i) {
+//		this->i = i;
+//	}
+//	void myprint() {
+//		cout << this->i << endl;
+//	}
+//	//友元函数
+//	friend void modify_i(A* p,int a);
+//};
+////友元函数的实现,在友元函数中可以访问私有的属性.
+//void modify_i(A *p,int a) {
+//	p->i = a;
+//}
+//void main() {
+//	A* a = new A(10);
+//	a->myprint();
+//	modify_i(a, 20);
+//	a->myprint();
+//	getchar();
+//}
+
+//友元类
+/*
+java 中
+Class cls = Class.forName("com.test.Teacher");
+cls.setAccessable(true);
+Class 是一个类,com.test.Teacher是一个类, Class 是所有类的友元类,是不是呢.
+Java 的话就是用C和C++写的.
+*/
+//class A {
+//	//友元类
+//	friend class B;
+//private:
+//	int i;
+//public:
+//	A(int i) {
+//		this->i = i;
+//	}
+//	void myprint() {
+//
+//	}
+//
+//};
+//class B {
+//private:
+//	A a;
+//public:
+//	//B这个友元类可以访问A类的任何成员.
+//	void accessAny() {
+//		a.i = 30;
+//		a.myprint();
+//	}
+//};
+//void main() {
+//
+//}
+
+/*
+AndFix 阿里巴巴热修复框架:虽然不维护了,但是他的原理就是通过NDK 去替换原有的class,和原有的方法,
+不需要重启,来实现方法指针的替换.
+*/
+
+//运算符重载: 本质还是函数调用.
+
+//class Point {
+//public:
+//	int x;
+//	int y;
+//public:
+//	Point(int x = 0, int y = 0) {
+//		this->x = x;
+//		this->y = y;
+//	}
+//	Point operator+(Point &p2) {
+//		Point tmp(this->x + p2.x, this->y + p2.y);
+//		return tmp;
+//	}
+//	void myprint() {
+//		cout << this->x << "," << this->y << endl;
+//	}
+//};
+////重载 +号    外部重载, 也可以重载在类内部
+////Point operator+(Point &p1, Point &p2) {
+////	Point tmp(p1.x + p2.x, p1.y + p2.y);
+////	return tmp;
+////}
+////重载 -号
+//Point operator-(Point &p1, Point &p2) {
+//	Point tmp(p1.x - p2.x, p1.y - p2.y);
+//	return tmp;
+//}
+//void main() {
+//	Point p1(1, 12);
+//	Point p2(2, 10);
+//	//如果是类内部运算符重载就相当于 p1.operator+(p2)等;
+//	Point p3 = p1 + p2;
+//	p3.myprint();
+//	/*
+//	Java 中 String str3 = "abcd" + "efg";
+//	在Java中为什么两个String 能相加呢?
+//	其实这就是用运算符重载来实现的.
+//	*/
+//}
+
+
+
+
+//当属性私有, 友元函数来完成运算符重载
+//
+//class Point {
+//	friend Point operator+(Point &p1, Point &p2);
+//private:
+//	int x;
+//	int y;
+//public:
+//	Point(int x = 0, int y = 0) {
+//		this->x = x;
+//		this->y = y;
+//	}
+//	void myprint() {
+//		cout << this->x << "," << this->y << endl;
+//	}
+//};
+//Point operator+(Point &p1,Point &p2) {
+//	Point tmp(p1.x + p2.x, p1.y + p2.y);
+//	return tmp;
+//}
+//void main() {
+//	Point p1(1, 12);
+//	Point p2(2, 10);
+//	//如果是类内部运算符重载就相当于 p1.operator+(p2)等;
+//	Point p3 = p1 + p2;
+//	p3.myprint();
+//	/*
+//	Java 中 String str3 = "abcd" + "efg";
+//	在Java中为什么两个String 能相加呢?
+//	其实这就是用运算符重载来实现的.
+//	*/
+//}
+
+

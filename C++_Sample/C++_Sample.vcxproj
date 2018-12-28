@@ -89,6 +89,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>D:\VisualProjects\C_Sample\C++_Sample\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -144,6 +145,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\C_Sample\c++_smple_01.cpp" />
+    <ClCompile Include="include\MyTeacher.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\MyTeacher.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
