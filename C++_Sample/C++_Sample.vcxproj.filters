@@ -21,9 +21,30 @@
     <ClCompile Include="include\MyTeacher.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="include\Plane.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\Jet.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\Copter.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="C++_smple_02.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\MyTeacher.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Plane.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Jet.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Copter.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

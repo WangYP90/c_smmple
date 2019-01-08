@@ -1,3 +1,3 @@
-﻿  c++_smple_01.cpp
-d:\visualprojects\c_sample\c_sample\c++_smple_01.cpp(822): warning C4326: “main”的返回类型应为“int”而非“void”
+﻿  C++_smple_02.cpp
+d:\visualprojects\c_sample\c++_sample\c++_smple_02.cpp(261): warning C4326: “main”的返回类型应为“int”而非“void”
   C++_Sample.vcxproj -> D:\VisualProjects\C_Sample\x64\Debug\C++_Sample.exe

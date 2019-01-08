@@ -145,10 +145,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\C_Sample\c++_smple_01.cpp" />
+    <ClCompile Include="C++_smple_02.cpp" />
+    <ClCompile Include="include\Copter.cpp" />
+    <ClCompile Include="include\Jet.cpp" />
     <ClCompile Include="include\MyTeacher.cpp" />
+    <ClCompile Include="include\Plane.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Copter.h" />
+    <ClInclude Include="include\Jet.h" />
     <ClInclude Include="include\MyTeacher.h" />
+    <ClInclude Include="include\Plane.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

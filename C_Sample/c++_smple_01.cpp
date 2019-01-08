@@ -833,3 +833,269 @@ AndFix 阿里巴巴热修复框架:虽然不维护了,但是他的原理就是通过NDK 去替换原有的class
 //}
 
 
+
+
+//继承
+//代码的重用性
+//class Human {
+//public:
+//	Human(char* name, int age) {
+//		this->name = name;
+//		this->age = age;
+//	}
+//	void say() {
+//		cout << "说话" << endl;
+//	}
+//protected:
+//	char* name;
+//	int age;
+//};
+//class Man : public Human {
+//public:
+//	//给父类构造函数传惨,给属性对象赋值
+//	Man(char* brothers,char* s_name,int s_age, char* h_name, int h_age):Human(s_name, s_age) , h(h_name, h_age) {
+//		this->brothers = brothers;
+//	}
+//	void chasing() {
+//		cout << "泡妞" << this->name << endl;
+//	}
+//private:
+//	char* brothers;
+//	Human h;
+//};
+//void work(Human& h) {
+//	h.say();
+//}
+//void main() {
+//	Man m1((char*)"Android",(char*)"Java",20, (char*)"Java1", 30);
+//	m1.say();
+//
+//	//Human* h1 = &m1;
+//	//h1->say();
+//
+//	//Human &h2 = m1;
+//	//h2.say();
+//
+//	////父类类型的对象直接初始化父类类型的对象.
+//	//Human h3 = m1;
+//	getchar();
+//}
+
+
+// 继承 中 构造函数和析构函数的调用流程
+// 父构造 -> 子构造 -> 子析构 -> 父析构
+//class Human {
+//public:
+//	Human(char* name, int age) {
+//		this->name = name;
+//		this->age = age;
+//		cout << "Human 构造函数" << endl;
+//	}
+//	void say() {
+//		cout << "说话" << endl;
+//	}
+//	~Human()
+//	{
+//		cout << "Human 析构函数" << endl;
+//	}
+//public:
+//	char* name;
+//	int age;
+//};
+//class Man : public Human {
+//public:
+//	//给父类构造函数传惨,给属性对象赋值
+//	Man(char* brothers, char* s_name, int s_age) :Human(s_name, s_age) {
+//		this->brothers = brothers;
+//		cout << "Man 构造函数" << endl;
+//	}
+//	~Man()
+//	{
+//		cout << "Man 析构函数" << endl;
+//	}
+//	void chasing() {
+//		cout << "泡妞" << this->name << endl;
+//	}
+//	void say() {
+//		cout << "男人喜欢泡妞" << endl;
+//	}
+//private:
+//	char* brothers;
+//};
+//void func() {
+//	//调用的都是子类的 say()的函数
+//	Man m1((char*)"Android", (char*)"Java", 20);
+//	//m1.say();
+//	//Human h1 = m1;
+//	//h1.say();
+//	// 调用父类的say();
+//	m1.Human::say();
+//
+//	//父类的属性赋值
+//	m1.Human::age = 15;
+//}
+//void func01() {
+//	Man m1((char*)"Android", (char*)"Java", 20);
+//	m1.say();
+//}
+//void main() {
+//	func();
+////	func01();
+//	getchar();
+//}
+
+
+
+//多继承
+//class Person {
+//public:
+//};
+//class Citizen {
+//
+//};
+//// 学生 ,即是人,又是公民
+///*
+//继承的访问修饰符:public private protected 
+//*/
+//class Student :public Person, public Citizen {
+//public:
+//	Student() :Person() {
+//
+//	}
+//	Student() :Citizen() {
+//
+//	}
+//	Student() :Person(), Citizen() {
+//
+//	}
+//	
+//};
+//
+//void main() {
+//
+//	getchar();
+//}
+
+
+//继承的二义性 : 虚继承
+//class A {
+//public:
+//	char* name;
+//};
+//class A1 : virtual public A {
+//};
+//class A2 : virtual public A {
+//};
+//class B : public A1, public A2 {
+//
+//};
+//void main() {
+//	B b;
+//	//b name 不明确,报错
+//	//b.name = "Java";
+//
+//	//显式调用,指定父类
+//	b.A1::name = (char*)"Java";
+//	b.A2::name = (char*)"Android";
+//
+//	//virtual 虚继承来解决 属性的二义性,不明确的问题.
+//	b.name = (char*)"Java";
+//	//当然这里肯定还有同一个name 不同的类型的问题,这种碰到自行百度
+//
+//	getchar();
+//}
+
+//虚函数: 多态(程序的扩展性)
+//动态多态:程序运行过程中,觉得哪一个函数被调用(重写)
+//静态多态:重载
+/*
+发生动态多态的条件: 1. 继承 2.父类的引用或者指针指向子类的对象 3.函数的重写
+*/
+
+//#include "Plane.h"
+//#include "Jet.h"
+//#include "Copter.h"
+////业务函数
+//void bizplay(Plane& p) {
+//	p.fly();
+//	p.land();
+//}
+//void main() {
+//	Plane p1;
+//	bizplay(p1);
+//	/*
+//	要让运行的时候实现多态,就必须在 Plane 的函数上加virtuol关键字
+//	,就能实现多态了,也就是虚函数.
+//	*/
+//	Jet j1;
+//	bizplay(j1);
+//
+//	Copter c1;
+//	bizplay(c1);
+//	getchar();
+//}
+
+//纯虚函数 ：(抽象类)
+//当一个类具有一个纯虚函数,这个类就是抽象类
+//抽象类是不能实例化对象的.
+//子类继承抽象类,必须要实现纯函数.如果没有,子类也是抽象类.
+//形状
+//class Shape {
+//public:
+//	//纯虚函数
+//	virtual void sayArea() = 0;
+//};
+////圆
+//class Circle : public Shape {
+//public:
+//	Circle(int r) {
+//		this->r = r;
+//	}
+//	void sayArea() {
+//		this->area = 3.14159 * r *r;
+//		cout << "圆的面积:" << area << endl;
+//	}
+//private:
+//	int r;
+//	int area;
+//};
+//void main() {
+//	Circle c1(10);
+//	c1.sayArea();
+//	getchar();
+//}
+
+//接口: 只是逻辑上的划分,语法上和抽象类没有任何区别.
+
+//模板函数(泛型)
+//void myswap(int& a, int& b) {
+//	int tmp = 0;
+//	tmp = a;
+//	a = b;
+//	b = tmp;
+//}
+//void myswap(char& a, char& b) {
+//	int tmp = 0;
+//	tmp = a;
+//	a = b;
+//	b = tmp;
+//}
+////发现:这两个函数的业务逻辑是一样, 只是数据类型不一样而已.
+////根据实际类型,自动推导.
+//template <typename T>
+//void myswap(T& a, T& b) {
+//	char tmp = 0;
+//	tmp = a;
+//	a = b;
+//	b = tmp;
+//	cout << a << "," << b << endl;
+//}
+//void main() {
+//	int a = 10, b = 20;
+//	myswap(a, b);
+//	cout << a << "," << b << endl;
+//	char cx = 'w', cy = 'y';
+//	myswap(cx, cy);
+//	cout << cx << "," << cy << endl;
+//	getchar();
+//}
